@@ -47,7 +47,11 @@ const Block = ({
   };
 
   return (
-    <div className={styles.block}>
+    <div
+      className={`${styles.block} ${
+        hash && isValidHash(hash) ? styles.validBlock : ''
+      }`}
+    >
       <div>
         Block <span>{block}</span>
       </div>

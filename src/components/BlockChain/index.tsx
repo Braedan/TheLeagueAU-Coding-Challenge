@@ -61,17 +61,19 @@ const BlockChain = () => {
       <h1>Block Chain Demo</h1>
       <div>Total Blocks: {hashes.length}</div>
 
-      {/* Loop block array and render, add key */}
-      {hashes.map((hash, index) => (
-        <Block
-          block={index + 1}
-          key={index + 1}
-          hash={hash}
-          previousHash={index > 0 ? hashes[index - 1] : undefined}
-          onHash={onHash}
-          onDelete={index === hashes.length - 1 ? onDelete : undefined}
-        />
-      ))}
+      <div className={styles.blockContainer}>
+        {/* Loop block array and render, add key */}
+        {hashes.map((hash, index) => (
+          <Block
+            block={index + 1}
+            key={index + 1}
+            hash={hash}
+            previousHash={index > 0 ? hashes[index - 1] : undefined}
+            onHash={onHash}
+            onDelete={index === hashes.length - 1 ? onDelete : undefined}
+          />
+        ))}
+      </div>
 
       <button type='button' onClick={() => onAdd()}>
         Add Block
