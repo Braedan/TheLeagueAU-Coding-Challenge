@@ -1,5 +1,5 @@
 import React from 'react';
-import { getByRole, render, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import Block from './';
