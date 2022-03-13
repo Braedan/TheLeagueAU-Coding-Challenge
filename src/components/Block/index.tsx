@@ -21,13 +21,19 @@ interface Props {
  * @param onDelete deletion of this block
  * @param onHash hash change callback
  */
-const Block = ({ block, previousHash = '0'.repeat(64), hash, onHash, onDelete }: Props) => {
+const Block = ({
+  block,
+  previousHash = '0'.repeat(64),
+  hash,
+  onHash,
+  onDelete,
+}: Props) => {
   const [nonce, setNonce] = useState<number>(0);
   const [data, setData] = useState('');
 
   // Every time the hash needs to be recalculated, call onHash
   useEffect(() => {
-    onHash(block, sha256(block + data + previousHash + nonce))
+    onHash(block, sha256(block + data + previousHash + nonce));
   }, [block, data, previousHash, nonce]);
 
   // Checks if hash is valid
@@ -37,7 +43,7 @@ const Block = ({ block, previousHash = '0'.repeat(64), hash, onHash, onDelete }:
   const onMine = (i = 1) => {
     while (!isValidHash(sha256(block + data + previousHash + i))) i++;
     onHash(block, sha256(block + data + previousHash + i));
-    setNonce(i)
+    setNonce(i);
   };
 
   return (
@@ -50,7 +56,10 @@ const Block = ({ block, previousHash = '0'.repeat(64), hash, onHash, onDelete }:
       </div>
       <div>
         <label htmlFor={`data-${block}`}>Data</label>
-        <textarea id={`data-${block}`} onChange={(e) => setData(e.target.value)}/>
+        <textarea
+          id={`data-${block}`}
+          onChange={(e) => setData(e.target.value)}
+        />
       </div>
       <div>
         Previous Hash <span>{previousHash}</span>
@@ -59,12 +68,19 @@ const Block = ({ block, previousHash = '0'.repeat(64), hash, onHash, onDelete }:
         Hash <span>{hash}</span>
       </div>
       <div>
-        Valid Block <span>{hash && isValidHash(hash) ? "Valid" : "Not Valid"}</span>
+        Valid Block{' '}
+        <span>{hash && isValidHash(hash) ? 'Valid' : 'Not Valid'}</span>
       </div>
-      <button type="button" onClick={() => onMine()}>Mine</button>
-      {onDelete && <button type="button" onClick={() => onDelete()}>Delete</button>}
+      <button type='button' onClick={() => onMine()}>
+        Mine
+      </button>
+      {onDelete && (
+        <button type='button' onClick={() => onDelete()}>
+          Delete
+        </button>
+      )}
     </div>
-  )
+  );
 };
 
 export default Block;
